@@ -1,0 +1,90 @@
+# -----------------------
+# Python
+# -----------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# -----------------------
+# Virtual Environment
+# -----------------------
+env/
+venv/
+.venv/
+ENV/
+*/env/
+*/venv/
+*/.venv/
+
+# -----------------------
+# Environment Variables
+# -----------------------
+.env
+.env.*
+*/.env
+
+# -----------------------
+# Django
+# -----------------------
+*.log
+db.sqlite3
+db.sqlite3-journal
+
+# -----------------------
+# Migrations (optional)
+# -----------------------
+**/migrations/
+!**/migrations/__init__.py
+
+# -----------------------
+# Static & Media
+# -----------------------
+staticfiles/
+media/
+static/
+
+# -----------------------
+# IDE
+# -----------------------
+.vscode/
+.idea/
+
+# -----------------------
+# OS
+# -----------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------
+# Testing / Coverage
+# -----------------------
+.coverage
+htmlcov/
+.pytest_cache/
+
+# -----------------------
+# Build
+# -----------------------
+build/
+dist/
+*.egg-info/
+
+# -----------------------
+# Logs
+# -----------------------
+logs/
+*.log
+
+# -----------------------
+# Celery / Cache
+# -----------------------
+celerybeat-schedule
+*.pid
+*.sock
+
+# -----------------------
+# Temporary
+# -----------------------
+*.swp
+*.swo
+*~
