@@ -3,7 +3,7 @@ from django.contrib.postgres.fields import ArrayField
  
 from apps.core.models import TimeStampedModel
  
-# ==== Zone Section =======================================================
+# ---- Zone Section ----------------------------------------------------
 
 class Zone(TimeStampedModel):
     """

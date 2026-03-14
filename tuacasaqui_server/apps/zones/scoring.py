@@ -8,12 +8,11 @@ Priority weights map:
     "Important" → 2
     "Essential" → 3
 """
-
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import List
 
-# ==== Constants ===============================================================
+# ---- Constants -----------------------------------------------
 
 PRIORITY_WEIGHTS = {
     "not":       0,
@@ -38,11 +37,11 @@ LABEL_THRESHOLDS = [
 ]
 
 
-# ==== Data classes ========================================================
+# ---- Data classes -----------------------------------------------------
 
 @dataclass
 class UserPreferences:
-    budget:          float        # EUR/month (max rent)
+    budget: float        # EUR/month (max rent)
     safety_priority: str          # Not / Somewhat / Important / Essential
     schools_priority: str
     transport_priority: str
@@ -59,7 +58,7 @@ class ZoneScores:
     match_label: str
 
 
-# ==== Helpers ========================================================
+# ---- Helpers ---------------------------------------------------------
 
 def _clamp(value: float, lo: float = 0.0, hi: float = 100.0) -> float:
     return max(lo, min(hi, value))
@@ -76,7 +75,7 @@ def _match_label(score: float) -> str:
     return "Fair Match"
 
 
-# ==== Individual dimension scorers ====================================
+# ---- Individual dimension scorers ---------------------------
 
 def _score_safety(zone) -> float:
     """
@@ -161,7 +160,7 @@ def _score_budget(zone, max_budget: float) -> float:
     return round(_clamp(score), 1)
 
 
-# ==== Public API =========================================================
+# ----- Public API ----------------------------------------------------------
 
 def compute_scores(zone, prefs: UserPreferences) -> ZoneScores:
     safety_pct  = _score_safety(zone)

@@ -1,9 +1,8 @@
-# apps/zones/serializers.py
 from rest_framework import serializers
 from .models import Zone, Bookmark
 
 
-# === Zone Section ===========================================================
+# ---- Zone Section -------------------------------------------------
 
 class ZoneListSerializer(serializers.ModelSerializer):
     """Lightweight serializer for recommendation list results."""
