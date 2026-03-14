@@ -3,14 +3,15 @@ from django.contrib.postgres.fields import ArrayField
  
 from apps.core.models import TimeStampedModel
  
- 
+# ==== Zone Section =======================================================
+
 class Zone(TimeStampedModel):
     """
     Represents a single zone/area record imported from the JSON dataset.
     All monetary values are in EUR.  Area values are in m².
     """
  
-    # ==== Identity =======================================================
+
     external_id = models.CharField(max_length=20, unique=True, db_index=True)
     country     = models.CharField(max_length=100, db_index=True)
     district    = models.CharField(max_length=100, db_index=True)
@@ -21,40 +22,40 @@ class Zone(TimeStampedModel):
     )
  
 
-    # ==== Geography ======================================================
+    # Geography
     latitude  = models.FloatField()
     longitude = models.FloatField()
  
-    # ==== Market (EUR / m²) =============================================
-    market_avg_price_per_m2 = models.FloatField(default=0)   # EUR/m²
+    # Market (EUR / m²)
+    market_avg_price_per_m2 = models.FloatField(default=0)   # EUR/m^2
     market_status           = models.CharField(max_length=50, default="Unknown")
     market_trend_12mo       = models.CharField(max_length=20, default="0%")
  
-    # ==== Safety =========================================================
+    # Safety
     safety_crime_rate              = models.FloatField(default=0)
     safety_police_density          = models.FloatField(default=0)
     safety_emergency_response_time = models.FloatField(default=0)
     safety_street_light_density    = models.FloatField(default=0)
  
-    # ==== Schools ========================================================
+    # Schools
     schools_count              = models.IntegerField(default=0)
     schools_avg_rating         = models.FloatField(default=0)
     schools_student_teacher_ratio = models.FloatField(null=True, blank=True)
     schools_exam_performance_index = models.FloatField(default=0)
  
-    # ==== Transport ======================================================
+    # Transport 
     transport_bus_stop_density      = models.FloatField(default=0)
     transport_metro_distance        = models.FloatField(default=-1)   # metres; -1 = no metro
     transport_avg_commute_time      = models.FloatField(default=0)    # minutes
     transport_congestion_index      = models.FloatField(default=0)
  
-    # ==== Budget (EUR) ===================================================
+    # Budget (EUR)
     budget_avg_rent       = models.FloatField(default=0)   # EUR/month
     budget_cost_of_living = models.FloatField(default=0)   # EUR/month
     budget_utility_index  = models.FloatField(default=0)   # index 0-100
     budget_internet_cost  = models.FloatField(default=0)   # EUR/month
  
-    # ==== Overall ========================================================
+    # Overall
     livability_score = models.FloatField(default=0)         # 0-10
  
     class Meta:
