@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
 
     'apps.core',
-    # 'apps.zones',
+    'apps.zones',
 ]
 
 MIDDLEWARE = [
@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tuacasaqui_db',
+        'USER': 'riyad_user',
+        'PASSWORD': 'riyad@123',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

@@ -88,3 +88,10 @@ celerybeat-schedule
 *.swp
 *.swo
 *~
+# -----------------------
+# JSON
+# -----------------------
+tuacasaaqui_portugal_cleaned_data.json
+tuacasaaqui_portugal_cleaned_data.json/
+*tuacasaaqui_portugal_cleaned_data.json
+
