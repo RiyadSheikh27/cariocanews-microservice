@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import Zone, Bookmark
 
-
 # ---- Zone Section -------------------------------------------------
 
 class ZoneListSerializer(serializers.ModelSerializer):
