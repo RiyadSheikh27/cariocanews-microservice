@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Zone, Bookmark
+from .models import Zone
 
 # ---- Zone Section -------------------------------------------------
 
