@@ -38,7 +38,7 @@ class RecommendationView(APIView):
             commute_preference=v["commute_preference"],
         )
 
-        # ---- Fetch & filter zones -------------------------------------
+        # ---- Fetch & filter zones --------------------------------------
         # Only pull columns we need → avoids loading heavy unused fields
         zones = (
             Zone.objects
