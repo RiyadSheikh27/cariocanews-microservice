@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "https://austin-ovisaclike-nonoptically.ngrok-free.dev",
+]
+
 
 # Application definition
 
@@ -44,6 +49,7 @@ INSTALLED_APPS = [
 
     'apps.core',
     'apps.zones',
+    'apps.blog',
 ]
 
 MIDDLEWARE = [
@@ -95,6 +101,9 @@ DATABASES = {
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    'DEFAULT_PAGINATION_CLASS': 'apps.core.pagination.CustomPagination',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'PAGE_SIZE': 10,
 }
 
 SPECTACULAR_SETTINGS = {
