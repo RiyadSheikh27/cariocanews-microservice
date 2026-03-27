@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Zone
+from .models import Zone, Bookmark
 
 # ---- Zone Section -------------------------------------------------
 
@@ -44,3 +44,15 @@ class ZoneDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Zone
         fields = "__all__"
+
+# ---- Bookmark ------------------------------------------------
+ 
+class BookmarkSerializer(serializers.ModelSerializer):
+    zone = ZoneListSerializer(read_only=True)
+    zone_id = serializers.PrimaryKeyRelatedField(
+        queryset=Zone.objects.all(), source="zone", write_only=True
+    )
+ 
+    class Meta:
+        model = Bookmark
+        fields = ["id", "zone", "zone_id", "created_at"]

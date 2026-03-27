@@ -3,8 +3,8 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 
 from apps.core.api_response import APIResponse
-from .models import Zone
-from .serializers import ZoneListSerializer, ZoneDetailSerializer
+from .models import Zone, Bookmark
+from .serializers import ZoneListSerializer, ZoneDetailSerializer, BookmarkSerializer
 from .scoring import UserPreferences, rank_zones, compute_scores
 from .validators import RecommendationInputSerializer
 
@@ -121,3 +121,69 @@ class ZoneDetailView(APIView):
             data=ZoneDetailSerializer(zone).data,
             message="Zone detail fetched",
         )
+
+# ---- Other views (e.g. Bookmark management) would go here ------------------------------------------------
+class BookmarkListView(APIView):
+    """
+    GET  /api/v1/zones/bookmarks/
+    POST /api/v1/zones/bookmarks/
+    """
+ 
+    def _session_key(self, request):
+        if not request.session.session_key:
+            request.session.create()
+        return request.session.session_key
+ 
+    def get(self, request):
+        key = self._session_key(request)
+        bms = (
+            Bookmark.objects
+            .filter(session_key=key)
+            .select_related("zone")
+            .order_by("-created_at")
+        )
+        return APIResponse.success_response(
+            data=BookmarkSerializer(bms, many=True).data,
+            message="Bookmarks fetched",
+            meta={"total": bms.count()},
+        )
+ 
+    def post(self, request):
+        key     = self._session_key(request)
+        zone_id = request.data.get("zone_id")
+ 
+        if not zone_id:
+            return APIResponse.error_response(
+                errors={"zone_id": ["This field is required."]},
+                message="zone_id is required",
+            )
+ 
+        zone = get_object_or_404(Zone, pk=zone_id)
+        bm, created = Bookmark.objects.get_or_create(session_key=key, zone=zone)
+ 
+        if not created:
+            return APIResponse.error_response(
+                message="Zone already bookmarked",
+                status_code=status.HTTP_409_CONFLICT,
+            )
+ 
+        return APIResponse.success_response(
+            data=BookmarkSerializer(bm).data,
+            message="Bookmark added",
+            status_code=status.HTTP_201_CREATED,
+        )
+ 
+ 
+class BookmarkDetailView(APIView):
+    """DELETE /api/v1/zones/bookmarks/<pk>/"""
+ 
+    def _session_key(self, request):
+        if not request.session.session_key:
+            request.session.create()
+        return request.session.session_key
+ 
+    def delete(self, request, pk):
+        key = self._session_key(request)
+        bm  = get_object_or_404(Bookmark, pk=pk, session_key=key)
+        bm.delete()
+        return APIResponse.success_response(message="Bookmark removed")

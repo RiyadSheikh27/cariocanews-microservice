@@ -67,3 +67,19 @@ class Zone(TimeStampedModel):
  
     def __str__(self):
         return f"{self.zone_name} — {self.city}, {self.country}"
+
+# ---- Bookmark Section ----------------------------------------------------  
+class Bookmark(TimeStampedModel):
+    """
+    Stores a user's bookmarked zone.
+    Auth will be wired later — for now session_key acts as user identifier.
+    """
+    session_key = models.CharField(max_length=100, db_index=True)
+    zone        = models.ForeignKey(Zone, on_delete=models.CASCADE, related_name="bookmarks")
+ 
+    class Meta:
+        unique_together = ("session_key", "zone")
+        ordering = ["-created_at"]
+ 
+    def __str__(self):
+        return f"[{self.session_key}] → {self.zone.zone_name}"

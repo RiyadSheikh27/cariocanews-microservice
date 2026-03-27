@@ -10,7 +10,7 @@ from django.conf import settings
 from apps.zones.models import Zone
 
 
-# ── Helpers (module-level, not inside handle) ─────────────────────────────────
+# ---- Helpers (module-level, not inside handle) -------------------------
 
 def _safe_float(val, default=0.0):
     try:
@@ -64,7 +64,7 @@ def _load_records(path: str) -> list:
     raise ValueError(f"Unrecognised JSON structure: type={type(raw)}")
 
 
-# ── Command ───────────────────────────────────────────────────────────────────
+# ---- Command ---------------------------------------------------------------
 
 class Command(BaseCommand):
     help = "Import zones from tuacasaaqui_portugal_cleaned_data.json"
