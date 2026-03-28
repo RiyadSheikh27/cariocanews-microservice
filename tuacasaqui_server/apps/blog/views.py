@@ -37,7 +37,7 @@ class BlogListAPIView(APIView):
             paginator = CustomPagination()
             paginated_queryset = paginator.paginate_queryset(queryset, request)
 
-            serializer = BlogSerializer(paginated_queryset, many=True)
+            serializer = BlogSerializer(paginated_queryset, many=True, context={"request": request})
 
             # Meta info
             meta = {
